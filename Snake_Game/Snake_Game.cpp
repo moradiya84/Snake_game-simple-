@@ -1,6 +1,5 @@
 // Snake_Game.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
 #include <iostream>
 #include <conio.h>
 #include<Windows.h>
@@ -26,14 +25,21 @@ void Setup() {
 void Draw() {
 	system("cls");
 	cout << "Score : " << score << endl;
-	for (int i = 0;i <= width;i++) cout << "#";
+	for (int i = 0;i <= width;i++)
+		cout << "#";
 	cout << endl;
-	for (int i = 0;i < height;i++) {
-		for (int j = 0;j <= width;j++) {
-			if (j == 0) cout << "#";
-			else if (j == width) cout << "#";
-			else if (j == x && i == y) cout << "O";
-			else if (j == fruitX && i == fruitY) cout << "F";
+	for (int i = 0;i < height;i++)
+	{
+		for (int j = 0;j <= width;j++)
+		{
+			if (j == 0)
+				cout << "#";
+			else if (j == width)
+				cout << "#";
+			else if (j == x && i == y)
+				cout << "O";
+			else if (j == fruitX && i == fruitY)
+				cout << "F";
 			else {
 				bool check = false;
 				for (int k = 0;k < ntail;k++) {
@@ -42,14 +48,15 @@ void Draw() {
 						check = true;
 					}
 				}
-				if(!check)
-				cout << " ";
+				if (!check)
+					cout << " ";
 			}
 		}
 		cout << endl;
 	}
 
-	for (int i = 0;i <= width;i++) cout << "#";
+	for (int i = 0;i <= width;i++)
+		cout << "#";
 	cout << endl;
 }
 
@@ -107,14 +114,17 @@ void Logic() {
 	default:
 		break;
 	}
-	if (min(x, y) == -1 || x == width || y == height) {
+	if (min(x, y) == -1 || x == width || y == height)
+	{
 		Gameover = true;
 	}
 	for (int i = 0;i < ntail;i++) {
-		if (tailX[i] == x && tailY[i] == y) Gameover = true;
+		if (tailX[i] == x && tailY[i] == y)
+			Gameover = true;
 	}
-	if (x == fruitX && y == fruitY) {
-		score+=10;
+	if (x == fruitX && y == fruitY)
+	{
+		score += 10;
 		fruitX = rand() % width;
 		fruitY = rand() % height;
 		ntail++;
@@ -124,11 +134,22 @@ void Logic() {
 
 int main()
 {
+	int difficulty;
+	while(1){
+		cout << "Please Selact Your Difficulty Level(1-3) : " << endl;
+		cin >> difficulty;
+		if (x <= 0 || x > 3) {
+			cout << "Invalid Choice Please selact again." << endl;
+			continue;
+		}
+		break;
+	}
+	int Speed = 200 - 50 * difficulty;
 	Setup();
 	while (!Gameover) {
 		Draw();
 		input();
 		Logic();
-		Sleep(150);
+		Sleep(Speed);
 	}
 }
